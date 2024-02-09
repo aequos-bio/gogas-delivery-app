@@ -129,6 +129,7 @@ class OrderPage extends StatelessWidget {
         ? [
             UploadButton(),
             SaveButton(),
+            PackageOnlyButton(),
             SearchButton(
               searchFunction: ({String? searchText}) =>
                   _orderEditorController.filterProducts(searchText: searchText),
@@ -264,21 +265,21 @@ class ViewContainer extends StatelessWidget {
         Container(
           decoration: BoxDecoration(border: Border(bottom: BorderSide())),
           child: ListTile(
+            contentPadding: EdgeInsets.only(left: 16, right: 12),
             title: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   orderName,
                   style: TextStyle(fontSize: 24),
-                ),
-                SizedBox()
+                )
               ],
             ),
             tileColor: Theme.of(context).colorScheme.primary.withAlpha(100),
             trailing: AnimatedSwitcher(
                 duration: Duration(milliseconds: 300),
                 child: SizedBox(
-                  width: 550,
+                  width: 700,
                   key: ValueKey(viewMode),
                   child: Wrap(
                     alignment: WrapAlignment.end,

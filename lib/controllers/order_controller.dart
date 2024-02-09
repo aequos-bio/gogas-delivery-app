@@ -104,6 +104,7 @@ class OrderEditorController {
   Order? _currentOrder;
   final RxList<Product> _filteredProducts = RxList.empty();
   final RxList<User> _filteredUsers = RxList.empty();
+  RxBool viewPackageProductsOnly = false.obs;
 
   RxBool loadingOrder = false.obs;
   Rx<ConnectionStatus> uploadingOrder = ConnectionStatus.none.obs;
@@ -138,6 +139,11 @@ class OrderEditorController {
     return _currentOrder!.products
         .where((p) => p.orderItems.any((item) => item.userId == userId))
         .toList();
+  }
+
+  void updateViewPackageProductsOnly(bool enabled) {
+    viewPackageProductsOnly.value = enabled;
+    filterProducts();
   }
 
   void toggleViewMode() {
@@ -250,6 +256,10 @@ class OrderEditorController {
   }
 
   bool _filterProduct(Product product, String? searchText) {
+    if (viewPackageProductsOnly.value && product.um.toLowerCase() == 'kg') {
+      return false;
+    }
+
     if (!_settingsService.showEmptyProducts.value && product.isEmpty()) {
       return false;
     }

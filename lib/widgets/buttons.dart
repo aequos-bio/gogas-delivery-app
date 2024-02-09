@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -94,6 +95,49 @@ class UploadButton extends StatelessWidget {
   }
 }
 
+class PackageOnlyButton extends StatelessWidget {
+  final OrderEditorController _orderEditorController = Get.find();
+
+  PackageOnlyButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    ColorScheme colorScheme = Theme.of(context).colorScheme;
+
+    return Tooltip(
+        message: "Mostra solo prodotti da consegnare a pezzi",
+        child: Obx(
+          () => Card(
+              margin: EdgeInsets.zero,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 12.0, right: 6),
+                    child: Icon(
+                      FontAwesomeIcons.boxesStacked,
+                      color: colorScheme.primary,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 32,
+                    width: 50,
+                    child: FittedBox(
+                      fit: BoxFit.contain,
+                      child: CupertinoSwitch(
+                          value: _orderEditorController
+                              .viewPackageProductsOnly.value,
+                          onChanged: (value) => _orderEditorController
+                              .updateViewPackageProductsOnly(value),
+                          activeColor: colorScheme.primary),
+                    ),
+                  ),
+                ],
+              )),
+        ));
+  }
+}
+
 class SearchButton extends StatefulWidget {
   final String tooltip;
   final void Function({String? searchText}) searchFunction;
@@ -135,7 +179,7 @@ class _SearchButtonState extends State<SearchButton> {
 
     return Container(
       key: const ValueKey("open"),
-      width: 300,
+      width: 220,
       height: 32,
       child: TextField(
           controller: _searchController,
