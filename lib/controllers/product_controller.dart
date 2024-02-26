@@ -103,8 +103,6 @@ class ProductController {
 
     sortedOrderItems.add(orderItem);
     product.orderItems.add(orderItem);
-
-    sortOrderItems(_settingsService.userSortingSettings.value);
   }
 
   void event(String type, {String? payload}) {

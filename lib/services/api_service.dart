@@ -35,7 +35,7 @@ class ApiService extends GetConnect with CacheManager {
 
   Future<ApiResult<String>> uploadOrder(String orderId, Order order) async {
     return await _post("$_apiPrefix/delivery/$orderId", order.toMap(),
-        decoder: (body) {
+        query: {"skipEmptyQuantities": "true"}, decoder: (body) {
       return body.toString();
     });
   }
