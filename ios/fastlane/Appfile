@@ -1,0 +1,8 @@
+app_identifier("bio.aequos.gogas.delivery") # The bundle identifier of your app
+apple_id("darth.loru@gmail.com") # Your Apple Developer Portal username
+
+itc_team_id("118791329") # App Store Connect Team ID
+team_id("9CP7U48GV4") # Developer Portal Team ID
+
+# For more information about the Appfile, see:
+#     https://docs.fastlane.tools/advanced/#appfile
