@@ -1,0 +1,75 @@
+version: 2.1
+
+orbs:
+  android: circleci/android@2.4.0
+  flutter: circleci/flutter@2.0.2
+  ruby: circleci/ruby@2.1.0
+  macos: circleci/macos@2.4.1
+
+jobs:
+  build_android:
+    executor:
+      name: android/android-machine
+      resource-class: large
+      tag: 2023.11.1
+    steps:
+      - checkout
+      - flutter/install_sdk: 
+          version: 3.16.5
+      - flutter/install_pub:
+          cache-version: v1
+      - run:
+          name: Flutter pub get
+          command: |
+            flutter pub get
+      - run:
+          name: Decode Android keystore
+          command: |
+            echo $BASE64_KEYSTORE | base64 -d | tee keystore android/app/keystore > /dev/null
+      - run:
+          name: Create keystore.properties
+          command: |
+            cd android && printf 'keyAlias=%s\nkeyPassword=%s\nstoreFile=keystore\nstorePassword=%s' \
+            $RELEASE_KEY_ALIAS $RELEASE_KEY_PASSWORD $RELEASE_STORE_PASSWORD > key.properties
+      - run:
+          name: Print keystore.properties
+          command: |
+            cat android/key.properties
+      - run:
+          name: Build APK
+          command: |
+            flutter build appbundle
+      - store_artifacts:
+          path: build/app/outputs/bundle/release/app-release.aab
+  build_ios:
+    macos:
+      xcode: 14.3.1
+    steps:
+      - checkout
+      - flutter/install_sdk_and_pub: 
+          version: 3.16.5
+      - flutter/install_ios_pod
+      - flutter/install_ios_gem
+      - run:
+          name: Flutter get packages
+          command: flutter packages get
+      - run:
+          name: Install Cocoa Posa
+          command: find . -name "Podfile" -execdir pod install \;
+      - run:
+          name: Flutter clean
+          command: flutter clean
+      - run:
+          name: Flutter build
+          command: flutter build ios --release --no-codesign
+      - run:
+          command: bundle exec fastlane release
+          working_directory: ios
+      - run: cat /Users/distiller/Library/Logs/gym/Runner-Runner.log
+      - store_artifacts:
+          path: /Users/distiller/project/ios/gogas-release.ipa
+workflows:
+  build:
+    jobs:
+      - build_ios
+      - build_android
