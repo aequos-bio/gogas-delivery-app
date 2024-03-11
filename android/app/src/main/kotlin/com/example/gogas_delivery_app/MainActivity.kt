@@ -1,4 +1,4 @@
-package com.example.gogas_delivery_app
+package bio.aequos.gogas.delivery
 
 import io.flutter.embedding.android.FlutterActivity
 
