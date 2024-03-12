@@ -1,0 +1,5 @@
+git_url("https://github.com/darth-loru/certificates")
+type("appstore")
+app_identifier("bio.aequos.gogas.delivery")
+username("darth.loru@gmail.com") # Your Apple Developer Portal username
+#git_branch("main")

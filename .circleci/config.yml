@@ -68,8 +68,36 @@ jobs:
       - run: cat /Users/distiller/Library/Logs/gym/Runner-Runner.log
       - store_artifacts:
           path: /Users/distiller/project/ios/gogas-release.ipa
+  build_macos:
+    macos:
+      xcode: 14.3.1
+    steps:
+      - checkout
+      - flutter/install_sdk_and_pub: 
+          version: 3.16.5
+      - flutter/install_ios_pod
+      - flutter/install_ios_gem
+      - run:
+          name: Flutter get packages
+          command: flutter packages get
+      - run:
+          name: Install Cocoa Posa
+          command: find . -name "Podfile" -execdir pod install \;
+      - run:
+          name: Flutter clean
+          command: flutter clean
+      - run:
+          name: Flutter build
+          command: flutter build macos --release --no-codesign
+      - run:
+          command: bundle exec fastlane release
+          working_directory: macos
+      - run: cat /Users/distiller/Library/Logs/gym/Runner-Runner.log
+#      - store_artifacts:
+#          path: /Users/distiller/project/ios/gogas-release.ipa
 workflows:
   build:
     jobs:
-      - build_ios
-      - build_android
+#      - build_ios
+#      - build_android
+      - build_macos
