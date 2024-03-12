@@ -54,7 +54,7 @@ jobs:
           name: Flutter get packages
           command: flutter packages get
       - run:
-          name: Install Cocoa Posa
+          name: Install Cocoa Poads
           command: find . -name "Podfile" -execdir pod install \;
       - run:
           name: Flutter clean
@@ -81,14 +81,14 @@ jobs:
           name: Flutter get packages
           command: flutter packages get
       - run:
-          name: Install Cocoa Posa
+          name: Install Cocoa Poads
           command: find . -name "Podfile" -execdir pod install \;
       - run:
           name: Flutter clean
           command: flutter clean
       - run:
           name: Flutter build
-          command: flutter build macos --release --no-codesign
+          command: flutter build macos --release
       - run:
           command: bundle exec fastlane release
           working_directory: macos
