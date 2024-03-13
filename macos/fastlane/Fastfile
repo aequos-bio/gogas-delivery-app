@@ -36,7 +36,6 @@ platform :mac do
       configuration: "Release",
       skip_package_pkg: false,
       output_directory: "builds",
-      xcodebuild_formatter: 'xcbeautify',
       silent: true,
       export_method: "app-store",
       export_options: {
