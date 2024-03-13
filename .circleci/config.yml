@@ -6,6 +6,59 @@ orbs:
   ruby: circleci/ruby@2.1.0
   macos: circleci/macos@2.4.1
 
+commands:
+  install_macos_gem:
+    description: >
+      Install your MacOS Rubygems(mainly fastlane) with automated caching and best practices applied. Requires lock file.
+      https://flutter.dev/docs/deployment/cd
+    parameters:
+      app-dir:
+        default: .
+        description: Path to the directory containing your pubspec.yaml file. Not needed if pubspec.yaml lives in the root.
+        type: string
+      cache-version:
+        default: v1
+        description: Change the default cache version if you need to clear the cache for any reason.
+        type: string
+    steps:
+      - restore_cache:
+          keys:
+            - 'bundle-<<parameters.cache-version>>-macos-{{ checksum "<< parameters.app-dir >>/macos/Gemfile.lock" }}'
+      - run:
+          name: Install Dependencies
+          command: |
+            bundle config set path ./vendor/bundle
+            bundle install
+          working_directory: <<parameters.app-dir>>/macos
+      - save_cache:
+          paths:
+            - <<parameters.app-dir>>/ios/vendor/bundle
+          key: 'bundle-<<parameters.cache-version>>-macos-{{ checksum "<< parameters.app-dir >>/macos/Gemfile.lock" }}'
+  install_macos_pods:
+    description: >
+      Install your MacOS cocoapods packages with automated caching and best practices applied. Requires lock file.
+    parameters:
+      app-dir:
+        default: .
+        description: Path to the directory containing your pubspec.yaml file. Not needed if pubspec.yaml lives in the root.
+        type: string
+      cache-version:
+        default: v1
+        description: Change the default cache version if you need to clear the cache for any reason.
+        type: string
+    steps:
+      - restore_cache:
+          keys:
+            - 'pod-macos-<<parameters.cache-version>>-{{ checksum "<< parameters.app-dir >>/macos/Podfile.lock" }}'
+      - run:
+          name: Install Dependencies
+          command: pod install
+          working_directory: <<parameters.app-dir>>/macos
+      - save_cache:
+          paths:
+            - <<parameters.app-dir>>/macos/Pods
+          key: 'pod-macos-<<parameters.cache-version>>-{{ checksum "<< parameters.app-dir >>/macos/Podfile.lock" }}'
+
 jobs:
   build_android:
     executor:
@@ -75,8 +128,8 @@ jobs:
       - checkout
       - flutter/install_sdk_and_pub: 
           version: 3.16.5
-      - flutter/install_ios_pod
-      - flutter/install_ios_gem
+      - install_macos_pods
+      - install_macos_gem
       - run:
           name: Flutter get packages
           command: flutter packages get
