@@ -38,6 +38,7 @@ platform :mac do
       output_directory: "builds",
       silent: true,
       export_method: "app-store",
+      export_team_id: "9CP7U48GV4",
       export_options: {
         provisioningProfiles: {
           "bio.aequos.gogas.delivery" => "match AppStore bio.aequos.gogas.delivery macos"
