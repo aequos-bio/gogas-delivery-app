@@ -42,6 +42,8 @@ platform :mac do
       in_house: false # optional but may be required if using match/sigh
     )
 
+    match(app_identifier: "bio.aequos.gogas.delivery", type: "appstore", verbose: true, readonly: false, platform: "macos")
+
     build_mac_app(
       configuration: "Release",
       skip_package_pkg: false,
