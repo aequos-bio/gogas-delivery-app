@@ -144,7 +144,7 @@ jobs:
           working_directory: macos
       - run:
           name: Flutter build
-          command: flutter build macos --release --no-codesign
+          command: flutter build macos --release
       - run:
           command: bundle exec fastlane release
           working_directory: macos
