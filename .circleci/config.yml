@@ -139,9 +139,9 @@ jobs:
       - run:
           name: Flutter clean
           command: flutter clean
-      - run:
-          name: Flutter build
-          command: flutter build macos --release
+      #- run:
+      #    name: Flutter build
+      #    command: flutter build macos --release --no-codesign
       - run:
           command: bundle exec fastlane release
           working_directory: macos

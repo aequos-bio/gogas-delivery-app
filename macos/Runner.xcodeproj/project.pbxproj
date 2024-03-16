@@ -701,7 +701,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				PROVISIONING_PROFILE_SPECIFIER = "match AppStore bio.aequos.gogas.delivery";
+				PROVISIONING_PROFILE_SPECIFIER = "match AppStore bio.aequos.gogas.delivery macos";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
@@ -722,7 +722,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				PROVISIONING_PROFILE_SPECIFIER = "match AppStore bio.aequos.gogas.delivery";
+				PROVISIONING_PROFILE_SPECIFIER = "match AppStore bio.aequos.gogas.delivery macos";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
