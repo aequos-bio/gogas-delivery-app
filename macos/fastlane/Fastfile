@@ -56,7 +56,7 @@ platform :mac do
       }
     )
 
-#    version = get_version_number(xcodeproj: "Runner.xcodeproj")
-#    upload_to_app_store(skip_metadata: true, skip_screenshots: true, app_version: version, run_precheck_before_submit: false, precheck_include_in_app_purchases: false)
+    version = get_version_number(xcodeproj: "Runner.xcodeproj")
+    upload_to_app_store(skip_metadata: true, skip_screenshots: true, app_version: version, run_precheck_before_submit: false, precheck_include_in_app_purchases: false)
   end
 end

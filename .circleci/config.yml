@@ -147,6 +147,7 @@ jobs:
           command: flutter build macos --release
       - run:
           command: bundle exec fastlane release
+          working_directory: macos
       - store_artifacts:
           path: /Users/distiller/project/macos/builds/gogas_delivery_app.pkg
 workflows:
