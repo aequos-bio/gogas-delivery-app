@@ -28,7 +28,7 @@
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
-	<key>LSApplicationCategory</key>
+	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.productivity</string>
 </dict>
 </plist>
