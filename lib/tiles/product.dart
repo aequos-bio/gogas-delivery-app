@@ -232,7 +232,6 @@ class ProductByUserTile extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        //color: _getTileColor(),
         border: const Border(
             bottom: BorderSide(color: Color.fromARGB(255, 218, 218, 218))),
       ),
@@ -264,16 +263,6 @@ class ProductByUserTile extends StatelessWidget {
   }
 
   Widget formatQuantity(OrderItem orderItem) {
-    if (orderItem.finalDeliveredQty == null) {
-      return Tooltip(
-          message: "Prodotto non ancora smistato",
-          child: Icon(
-            FontAwesomeIcons.triangleExclamation,
-            color: Colors.red,
-            size: 28,
-          ));
-    }
-
     TextStyle style = TextStyle(
         fontSize: 24,
         fontWeight: FontWeight.w400,
@@ -281,6 +270,15 @@ class ProductByUserTile extends StatelessWidget {
         decoration: orderItem.finalDeliveredQty == 0
             ? TextDecoration.lineThrough
             : null);
+
+    if (orderItem.finalDeliveredQty == null) {
+      return Tooltip(
+          message: "Prodotto non ancora smistato",
+          child: Text(
+            "${NumberFormatter.formatQuantity(orderItem.originalDeliveredQty)} ${product.um}",
+            style: style,
+          ));
+    }
 
     if (orderItem.finalDeliveredQty! > 0 &&
         orderItem.finalDeliveredQty! % product.boxWeight == 0) {

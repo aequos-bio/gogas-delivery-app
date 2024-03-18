@@ -153,6 +153,6 @@ jobs:
 workflows:
   build:
     jobs:
-#      - build_ios
-#      - build_android
+      - build_ios
+      - build_android
       - build_macos
