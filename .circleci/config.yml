@@ -96,7 +96,7 @@ jobs:
           path: build/app/outputs/bundle/release/app-release.aab
   build_ios:
     macos:
-      xcode: 14.3.1
+      xcode: 15.4.0
     steps:
       - checkout
       - run:
@@ -126,7 +126,7 @@ jobs:
           path: /Users/distiller/project/ios/gogas-release.ipa
   build_macos:
     macos:
-      xcode: 14.3.1
+      xcode: 15.4.0
     steps:
       - checkout
       - run:
