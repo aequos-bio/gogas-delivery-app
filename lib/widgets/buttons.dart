@@ -89,7 +89,21 @@ class UploadButton extends StatelessWidget {
                   _orderEditorController.initOrderUpload();
                   Get.dialog(OrderUploadDialog(), barrierDismissible: false);
                 }
-              : null,
+              : () => Get.defaultDialog(
+                  title: "Autenticazione richiesta",
+                  textCancel: "Chiudi",
+                  contentPadding: EdgeInsets.all(20),
+                  content: const Row(children: [
+                    Icon(
+                      FontAwesomeIcons.triangleExclamation,
+                      color: Colors.red,
+                      size: 40,
+                    ),
+                    SizedBox(width: 20),
+                    Flexible(
+                        child: Text(
+                            "E' necessario effettuare il login per poter\ninviare i pesi a Go!Gas"))
+                  ])),
           child: const Icon(FontAwesomeIcons.upload))),
     );
   }

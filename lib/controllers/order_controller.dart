@@ -297,6 +297,8 @@ class OrderEditorController {
 
       if (!response.error) {
         uploadError = null;
+        currentOrderEntry!.lastPushTs = DateTime.now();
+        await save();
         return;
       }
 
