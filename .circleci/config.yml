@@ -99,6 +99,9 @@ jobs:
       xcode: 14.3.1
     steps:
       - checkout
+      - run:
+          name: Install Rosetta
+          command: /usr/sbin/softwareupdate --install-rosetta --agree-to-license
       - flutter/install_sdk_and_pub: 
           version: 3.16.5
       - flutter/install_ios_pod
