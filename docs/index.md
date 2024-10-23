@@ -20,4 +20,6 @@ L'applicazione è disponibile su tutte le piattaforme per PC (Windows, Linux, Ma
 
 ### iOS
 
+
+
 # Gestione ordini
