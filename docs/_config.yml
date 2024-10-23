@@ -1,5 +1,5 @@
 remote_theme: pages-themes/architect@v0.2.0
 plugins:
 - jekyll-remote-theme
-title: Go!Gas Smistamento - guida utente
-description: Guida utente per l'applicazione di smistamento di Go!Gas
+title: Go!Gas Smistamento
+description: Guida utente

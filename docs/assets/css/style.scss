@@ -4,5 +4,21 @@
 @import "{{ site.theme }}";
 
 header {
-    background: #65810f;
+    background: #96B043;
+}
+
+header h2 {
+    color: #e2ebc9;
+}
+
+header h1 {
+    font-size: 60;
+}
+
+a {
+    color: #65810f;
+}
+
+a:hover {
+    color: #495e0a;
 }
