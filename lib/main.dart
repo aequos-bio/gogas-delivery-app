@@ -90,7 +90,7 @@ class MyApp extends StatelessWidget {
           colorScheme: const ColorScheme.light(
               primary: Color.fromARGB(255, 150, 176, 67),
               secondary: Color.fromARGB(255, 145, 94, 59),
-              tertiary: Color.fromARGB(255, 101, 129, 15)),
+              tertiary: Color(0xFF65810F)),
           appBarTheme: const AppBarTheme(
               iconTheme: IconThemeData(color: Colors.white),
               titleTextStyle: TextStyle(
