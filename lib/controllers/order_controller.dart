@@ -10,6 +10,7 @@ class OrderController {
   final ApiService _apiService = Get.find();
   final NotificationService _notificationService = Get.find();
   final StorageService _storageService = Get.find();
+  final SettingsService _settingsService = Get.find();
 
   RxList<RemoteOrderEntry> remoteOrders = RxList.empty();
   Rx<ConnectionStatus> searchOrdersStatus = ConnectionStatus.none.obs;
@@ -205,7 +206,13 @@ class OrderEditorController {
       return false;
     }
 
-    double ratio = newTotalWeight / product.actualTotalWeight;
+    double totalQuantityToBeDelivered = product.orderItems
+        .map((item) => item.originalDeliveredQty)
+        .reduce((value, element) => value + element);
+
+    double ratio = totalQuantityToBeDelivered > 0
+        ? newTotalWeight / totalQuantityToBeDelivered
+        : 0;
 
     for (final OrderItem item in product.orderItems) {
       item.originalDeliveredQty *= ratio;
@@ -272,9 +279,37 @@ class OrderEditorController {
     return true;
   }
 
+  List<User> sortTotalUsers(List<User> users) {
+    UserSortingSettings sortingSettings =
+        _settingsService.userSortingSettings.value;
+    String sortingField = sortingSettings.field;
+
+    var sortedUsers = List<User>.from(users);
+
+    sortedUsers.sort((u1, u2) {
+      int result = 0;
+
+      if (sortingField == 'position' || sortingField == 'weight') {
+        result = u1.position.compareTo(u2.position);
+      } else if (sortingField == 'surname') {
+        result = u1.lastName.compareTo(u2.lastName);
+      } else if (sortingField == 'name') {
+        result = u1.firstName.compareTo(u2.firstName);
+      }
+
+      if (sortingSettings.direction == 'desc' && sortingField != 'weight') {
+        result = result * -1;
+      }
+
+      return result;
+    });
+
+    return sortedUsers;
+  }
+
   void filterUsers({String? searchText}) {
     String? lowerCaseSearchText = searchText?.toLowerCase();
-    _filteredUsers.value = List<User>.from(currentOrder?.sortedTotalUsers ?? [])
+    _filteredUsers.value = sortTotalUsers(currentOrder?.totalUsersFull ?? [])
         .where((user) => _filterUser(user, lowerCaseSearchText))
         .toList();
   }

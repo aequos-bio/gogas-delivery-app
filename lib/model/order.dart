@@ -22,11 +22,8 @@ class Order {
     return products.expand((p) => p.orderItems.map((o) => o.userId)).toSet();
   }
 
-  List<User> get sortedTotalUsers {
-    var sortedUsers =
-        users.where((element) => totalUsers.contains(element.id)).toList();
-    sortedUsers.sort((u1, u2) => u1.position.compareTo(u2.position));
-    return sortedUsers;
+  List<User> get totalUsersFull {
+    return users.where((element) => totalUsers.contains(element.id)).toList();
   }
 
   String get formattedDeliveryDate {

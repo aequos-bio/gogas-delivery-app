@@ -194,7 +194,8 @@ class ByProductView extends StatelessWidget {
                             tooltip: "Vedi lista ordinanti",
                             visualDensity: VisualDensity.compact,
                             onPressed: () => Get.dialog(TotalUserDialog(
-                              users: order.sortedTotalUsers,
+                              users: _orderEditorController
+                                  .sortTotalUsers(order.totalUsersFull),
                             )),
                             icon: Icon(FontAwesomeIcons.eye),
                             color: colorScheme.tertiary,

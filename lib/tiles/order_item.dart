@@ -33,7 +33,7 @@ class OrderItemTile extends StatefulWidget {
 }
 
 class _OrderItemTileState extends State<OrderItemTile> {
-  static final RegExp inputValidation = RegExp(r'^\d+\,?\d{0,3}$');
+  static final RegExp inputValidation = RegExp(r'^\d*\,?\d{0,3}$');
 
   late StreamSubscription<ProductPageEvent> onEventSub;
   late FocusNode myFocusNode;
@@ -381,7 +381,7 @@ class _OrderItemTileState extends State<OrderItemTile> {
           TextInputType.none, //TextInputType.numberWithOptions(decimal: true),
       inputFormatters: <TextInputFormatter>[
         FilteringTextInputFormatter.deny('.', replacementString: ','),
-        FilteringTextInputFormatter.allow(RegExp(r'^\d+\,?\d{0,3}'))
+        FilteringTextInputFormatter.allow(RegExp(r'^\d*\,?\d{0,3}'))
       ],
       decoration: const InputDecoration(
         border: InputBorder.none,

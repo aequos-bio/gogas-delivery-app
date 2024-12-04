@@ -135,22 +135,23 @@ class ApiService extends GetConnect with CacheManager {
           statusCode: 0);
     }
 
-    if (response.status.hasError) {
-      return ApiResult.error(
-          errorMessage: response.statusText,
-          statusCode: response.statusCode ?? 0);
-    }
-
     if (response.unauthorized) {
       Get.defaultDialog(
           title: "Sessione scaduta",
           content: Text("Effettuare nuovamente la login"),
           onConfirm: () {
             logout();
+            Get.back();
           });
 
       return ApiResult.error(
-          errorMessage: "Utente non autorizzato",
+          errorMessage: "Utente non autorizzato o sessione scaduta",
+          statusCode: response.statusCode ?? 0);
+    }
+
+    if (response.status.hasError) {
+      return ApiResult.error(
+          errorMessage: response.statusText,
           statusCode: response.statusCode ?? 0);
     }
 
