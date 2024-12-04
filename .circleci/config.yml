@@ -60,7 +60,7 @@ commands:
 jobs:
   build_android:
     executor:
-      name: android/android_machine
+      name: android/android-machine
       resource-class: large
       tag: 2024.11.1
     steps:
