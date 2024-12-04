@@ -62,7 +62,7 @@ jobs:
     executor:
       name: android/android-machine
       resource-class: large
-      tag: 2024.11.1
+      tag: 2023.10.1
     steps:
       - checkout
       - flutter/install_sdk: 
