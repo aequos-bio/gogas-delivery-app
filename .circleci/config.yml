@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  android: circleci/android@2.5.0
+  android: circleci/android@3.0.2
   flutter: circleci/flutter@2.0.4
   
 commands:
@@ -60,9 +60,9 @@ commands:
 jobs:
   build_android:
     executor:
-      name: android/android-machine
+      name: android/android_machine
       resource-class: large
-      tag: 2023.11.1
+      tag: 2024.11.1
     steps:
       - checkout
       - flutter/install_sdk: 
